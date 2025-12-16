@@ -110,19 +110,7 @@
             pointer-events: auto;
         }
 
-        /* Expanded Pubs Animation */
-        #more-pubs {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.8s ease-in-out, opacity 0.8s ease-in-out;
-        }
-        #more-pubs.expanded {
-            max-height: 10000px; 
-            opacity: 1;
-        }
-
-        /* Smooth Expansion Animation for Bio */
+        /* Smooth Expansion Animation */
         .expandable-content {
             max-height: 0;
             opacity: 0;
@@ -131,6 +119,18 @@
         }
         .expandable-content.expanded {
             max-height: 500px; /* Adjust based on content */
+            opacity: 1;
+        }
+        
+        /* Specific for publications to allow large height */
+        #more-pubs {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        }
+        #more-pubs.expanded {
+            max-height: 10000px; 
             opacity: 1;
         }
     </style>
@@ -370,7 +370,7 @@
 
                 <!-- Paper 6 -->
                 <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
-                    <h4 class="font-bold text-white text-md">Magnetic Transition Magnetocaloric and Supercapacitor Behavior in Synthesized Sn0.6Mn0.1Ge0.3Te Alloys</h4>
+                    <h4 class="font-bold text-white text-md">Magnetic Transition Magnetocaloric and Supercapacitor Behavior in Synthesized Sn<sub>0.6</sub>Mn<sub>0.1</sub>Ge<sub>0.3</sub>Te Alloys</h4>
                     <p class="text-xs text-slate-400 mt-1">Journal of Energy Storage (2024)</p>
                 </div>
                 
@@ -432,7 +432,7 @@
 
                 <!-- Paper 17 -->
                 <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
-                    <h4 class="font-bold text-white text-md">Magnetic Memory and Promising Magnetocaloric Effect of Sn0.6Cr0.1Ge0.3Te Solid Solution Synthesized by Sealed Tube Solid-State Reaction</h4>
+                    <h4 class="font-bold text-white text-md">Magnetic Memory and Promising Magnetocaloric Effect of Sn<sub>0.6</sub>Cr<sub>0.1</sub>Ge<sub>0.3</sub>Te Solid Solution Synthesized by Sealed Tube Solid-State Reaction</h4>
                     <p class="text-xs text-slate-400 mt-1">The Journal of Physics Chemistry C (2023)</p>
                 </div>
 
