@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>何明鋼 (Ming-Kang Ho) - R&D Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans TC"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        primary: '#38bdf8', // Sky 400
+                        accent: '#818cf8',  // Indigo 400
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .img-zoom-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .img-zoom-container img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-zoom-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .cert-modal {
+            transition: opacity 0.2s ease-in-out;
+        }
+        .cert-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .cert-modal:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Expanded Pubs Animation */
+        #more-pubs {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        #more-pubs.expanded {
+            max-height: 10000px; /* Increased to accommodate all papers */
+            transition: max-height 1s ease-in;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans selection:bg-primary selection:text-slate-900 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Ming-Kang Ho</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#about" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">關於我</a>
+                        <a href="#publications" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">學術發表</a>
+                        <a href="#experience" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">經歷與學歷</a>
+                        <a href="#projects" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">亮點專案</a>
+                        <a href="#honors" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">榮譽獎項</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="min-h-screen flex items-center justify-center relative pt-16">
+        <!-- Background Glow -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 animate-fade-in-up">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
+                    Physics PhD • R&D Engineer
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
+                    何明鋼 <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Ming-Kang Ho</span>
+                </h1>
+                <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+                    跨越<strong class="text-slate-200">理論物理</strong>與<strong class="text-slate-200">工程實作</strong>的界線。
+                    <br>專精於同步輻射實驗、自動化設備開發與 AI 數據分析。
+                </p>
+                
+                <div class="flex flex-wrap gap-4 text-sm text-slate-300 mb-8">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-primary"></i> 國立東華大學 物理博士 (2024/07)
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase text-primary"></i> NSRRC 博士級研究員
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-fingerprint text-green-400"></i> INFP-A 調停者
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ho.mk@nsrrc.org.tw" target="_blank" class="px-6 py-3 bg-primary text-slate-900 font-bold rounded-lg hover:bg-sky-300 transition-colors shadow-lg shadow-primary/20">
+                        <i class="fa-solid fa-envelope mr-2"></i> 聯絡我
+                    </a>
+                    <a href="#projects" class="px-6 py-3 border border-slate-600 rounded-lg hover:bg-slate-800 transition-colors">
+                        查看專案
+                    </a>
+                </div>
+            </div>
+            
+            <div class="order-1 md:order-2 flex justify-center animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full blur-2xl opacity-30 animate-pulse"></div>
+                    <div class="absolute inset-0 border-2 border-slate-700 rounded-full flex items-center justify-center bg-slate-800/80 backdrop-blur-sm overflow-hidden img-zoom-container">
+                        <!-- Profile Image -->
+                         <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQSMGeMrnhYYQ6tuTiBDPwNmAeHCCcyXisdKzunNStS93bc?width=1108&height=1477" 
+                              alt="Ming-Kang Ho" class="w-full h-full object-cover object-top">
+                    </div>
+                    
+                    <!-- Floating Tech Icons -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 3s;">
+                        <i class="fa-brands fa-python text-3xl text-yellow-500"></i>
+                    </div>
+                    <div class="absolute bottom-8 -left-8 w-14 h-14 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                        <i class="fa-solid fa-microchip text-2xl text-primary"></i>
+                    </div>
+                    <div class="absolute -bottom-4 right-8 w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 5s; animation-delay: 0.5s;">
+                        <span class="font-bold text-xs text-green-400">AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Marquee -->
+    <div class="w-full bg-slate-800/50 border-y border-slate-800 py-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4">
+            <h3 class="text-center text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Technical Arsenal</h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Python</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">PyQt5</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">YOLOv8</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Arduino</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Marlin FW</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Solidworks</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Fusion360</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">ImageJ</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">FullProf</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Dectris API</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. Publications Section (Moved to Top) -->
+    <section id="publications" class="py-24 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 reveal">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">精選學術發表</h2>
+                    <p class="text-slate-400">結合 AI 與材料科學的研究成果 (共 22 篇)</p>
+                </div>
+            </div>
+
+            <!-- Top 4 Papers (With Images) -->
+            <div class="space-y-8" id="top-pubs">
+                
+                <!-- Paper 1 (First Author) -->
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-primary hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="p-6 md:w-2/3">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">2024</span>
+                                <span class="text-xs font-mono text-slate-500">Materials Today Chemistry (IF: 7.6)</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Advancing Humidity Sensing and Magnetocaloric Properties of Spinel Structural CoCr₂O₄ Nanoparticles Achieved via Innovative Bismuth Doping by Combustion Synthesis</h3>
+                            <p class="text-sm text-slate-400 mb-2"><strong>Ming-Kang Ho</strong> (First Author), et al.</p>
+                            <p class="text-sm text-slate-300">
+                                <span class="text-primary font-bold">Highlight:</span> 開發新型鉍摻雜燃燒合成法，顯著提升濕度感測靈敏度與磁熱效應。
+                            </p>
+                        </div>
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                             <!-- Image for Paper 1 (BiCoCr2O4) - Changed to object-contain -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQQn-aO9yVz3QrbmU9KxAZQHAQWN-p7pt4LWFVRmj4goDW8?width=1391&height=1440" 
+                                  alt="Paper 1 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper 2 (AI) -->
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-green-500 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="p-6 md:w-2/3">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded">2024</span>
+                                <span class="text-xs font-mono text-slate-500">Materials Today Sustainability (IF: 7.8)</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Investigating Fe-doped Yttrium Oxide nanophosphors for enhanced latent fingerprint visualization and deep learning analysis</h3>
+                            <p class="text-sm text-slate-400 mb-2">D. R. Lavanya, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                            <p class="text-sm text-slate-300">
+                                <span class="text-green-400 font-bold">Highlight:</span> 結合 YOLOv8 深度學習模型，自動識別並標註指紋特徵點，提升鑑識科學自動化程度。
+                            </p>
+                        </div>
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                             <!-- Image for Paper 2 (YOLOv8) -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQTmkDXLXRRDSJagYu2p-CttAZiRXE9wQYfCieqI1iK9gDQ?width=452&height=353" 
+                                  alt="Paper 2 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper 3 -->
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-slate-600 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="p-6 md:w-2/3">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-slate-400 bg-slate-700/50 px-2 py-1 rounded">2025</span>
+                                <span class="text-xs font-mono text-slate-500">ACS Applied Electronic Materials</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">High-Performance Bi-Doped NiFe₂O₄ Nanoparticles for Advanced Supercapacitors and Room Temperature Magnetic Memory Applications</h3>
+                            <p class="text-sm text-slate-400">Tsu-En Hsu, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                        </div>
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                             <!-- Image for Paper 3 -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQRB6xHIVfvqQJrlrN0Ye6P1AagWTWwjhdgMzp54BQ1mDSY?width=1000&height=541" 
+                                  alt="Paper 3 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper 4 -->
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-slate-600 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="p-6 md:w-2/3">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-slate-400 bg-slate-700/50 px-2 py-1 rounded">2025</span>
+                                <span class="text-xs font-mono text-slate-500">Journal of Electronic Materials</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Study of Crystal Structure, Morphology, Magnetic and Electronic Structure of ZnFe₂O₄/CoCr₂O₄ Nanocomposites</h3>
+                            <p class="text-sm text-slate-400">K. Manjunatha, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                        </div>
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                             <!-- Image for Paper 4 (Updated) -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQROocq1FGIaRJvtJkvBMsjqAUv_hscDw4lwi9iOUFVpZ2k?width=2304&height=1856" 
+                                  alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Papers (More) -->
+            <div id="more-pubs" class="space-y-6 mt-6">
+                <!-- Paper 5 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Bismuth-doping Induced Enhanced Humidity Sensing Properties of Spinel NiFe₂O₄ Nanoparticles</h4>
+                    <p class="text-xs text-slate-400 mt-1">Sensors and Actuators B: Chemical (2025)</p>
+                </div>
+
+                <!-- Paper 6 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Magnetic Transition Magnetocaloric and Supercapacitor Behavior in Synthesized Sn0.6Mn0.1Ge0.3Te Alloys</h4>
+                    <p class="text-xs text-slate-400 mt-1">Journal of Energy Storage (2024)</p>
+                </div>
+                
+                <!-- Paper 7 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Manipulating and Investigating the Room-Temperature Magnetic Memory Phenomenon: The Impact of Rare-Earth Ion Doping on Nickel Oxide Nanoparticles</h4>
+                    <p class="text-xs text-slate-400 mt-1">Materials Today Chemistry (2024)</p>
+                </div>
+
+                <!-- Paper 8 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Enhanced down-conversion emission, high-level security, and advanced latent fingerprint visualization in La₂Zr₂O₇:Er³⁺ nanophosphor through surface modification and deep learning analysis</h4>
+                    <p class="text-xs text-slate-400 mt-1">ACS Applied Optical Materials (2024)</p>
+                </div>
+
+                <!-- Paper 9 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Sustainable Latent Fingerprint Enhancement with Ink-Free Printing and Shape Memory Behavior Using Parthenium Hysterophorus-derived Carbon Dots</h4>
+                    <p class="text-xs text-slate-400 mt-1">Sustainable Materials and Technologies (2024)</p>
+                </div>
+
+                <!-- Paper 10 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Study of structural, X-ray photoelectron spectroscopy, Raman and temperature-dependent magnetic studies of NiFe₂O₄/CoCr₂O₄ nanocomposites</h4>
+                    <p class="text-xs text-slate-400 mt-1">Journal of Solid State Chemistry (2024)</p>
+                </div>
+
+                <!-- Paper 11 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Structure, Microstructure and Enhanced Sensing Behavior of Nickle ferrite-Cobalt Chromate for Humidity Sensor Applications</h4>
+                    <p class="text-xs text-slate-400 mt-1">Journal of Materials Science: Materials in Electronics (2024)</p>
+                </div>
+
+                <!-- Paper 12 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Investigating Fe-Doped Yttrium Oxide Nanophosphors for Enhanced Latent Fingerprint Visualization and Deep Learning Analysis</h4>
+                    <p class="text-xs text-slate-400 mt-1">Materials Today Sustainability (2024)</p>
+                </div>
+
+                <!-- Paper 13 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">X-ray photoelectron spectroscopy, Raman and humidity sensing properties of Sm³⁺ doped CoCr₂O₄ for humidity sensor applications</h4>
+                    <p class="text-xs text-slate-400 mt-1">Journal of Inorganic and Organometallic Polymers and Materials (2024)</p>
+                </div>
+
+                <!-- Paper 14 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Orange-Red Emitting Sr₉Al₆O₁₈:Pr³⁺ Nanophosphors for Advanced Latent Fingerprints and Security Ink</h4>
+                    <p class="text-xs text-slate-400 mt-1">ACS Applied Nano Materials (2023)</p>
+                </div>
+
+                <!-- Paper 15 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Optimized Tb³⁺-activated Highly Efficient Green-emanating BaLa₂ZnO₅ nanophosphors in PDMS Matrix for Flexible Display, Anti-Counterfeiting, and Dermatoglyphics Applications</h4>
+                    <p class="text-xs text-slate-400 mt-1">Materials Today Sustainability (2023)</p>
+                </div>
+
+                <!-- Paper 16 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Potential applications of Fe³⁺-activated Sr₉Al₆O₁₈ nanophosphors for fingerprint detection, oxidative stress, and thrombosis treatment</h4>
+                    <p class="text-xs text-slate-400 mt-1">Biomaterials Advances (2023)</p>
+                </div>
+
+                <!-- Paper 17 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Magnetic Memory and Promising Magnetocaloric Effect of Sn0.6Cr0.1Ge0.3Te Solid Solution Synthesized by Sealed Tube Solid-State Reaction</h4>
+                    <p class="text-xs text-slate-400 mt-1">The Journal of Physics Chemistry C (2023)</p>
+                </div>
+
+                <!-- Paper 18 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Mg-Doped CoCr₂O₄ Nanoparticles: Implications for Magnetic Memory and Magnetocaloric Effect</h4>
+                    <p class="text-xs text-slate-400 mt-1">ACS Applied Nano Materials (2023)</p>
+                </div>
+
+                <!-- Paper 19 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Stimuli-responsive color-tunable BaLa₂ZnO₅:Bi³⁺ phosphor for the encryption and authentication of security patterns and latent fingerprint detection</h4>
+                    <p class="text-xs text-slate-400 mt-1">Colloids and Surfaces A (2023)</p>
+                </div>
+
+                <!-- Paper 20 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Precise Sn-Doping Modulation for Optimizing CdWO₄ Nanorod Photoluminescence</h4>
+                    <p class="text-xs text-slate-400 mt-1">International Journal of Molecular Science (2022)</p>
+                </div>
+
+                <!-- Paper 21 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Modulation of Magnetic and Luminescence Properties via Control Cu Doped in CdWO₄ Nanorods for Photocatalytic Applications</h4>
+                    <p class="text-xs text-slate-400 mt-1">ACS Applied Nano Materials (2022)</p>
+                </div>
+
+                <!-- Paper 22 -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Antiferromagnetic spin correlations above the bulk ordering temperature in NiO nanoparticles: Effect of extrinsic factors</h4>
+                    <p class="text-xs text-slate-400 mt-1">Applied Surface Science (2022)</p>
+                </div>
+
+                <!-- Paper 23 (The one from 2021) -->
+                <div class="glass-card p-4 rounded-xl border border-slate-700/50 opacity-80 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-white text-md">Sm-Doped NiO Nanoparticles for Magnetic Memory at Room Temperature</h4>
+                    <p class="text-xs text-slate-400 mt-1">ACS Applied Nano Materials (2021)</p>
+                </div>
+            </div>
+
+            <!-- Show More Button -->
+            <div class="text-center mt-12">
+                <button id="show-more-btn" onclick="togglePubs()" class="group bg-slate-800 border border-slate-700 text-slate-300 px-8 py-3 rounded-full hover:bg-slate-700 hover:text-white transition-all flex items-center justify-center mx-auto gap-2 shadow-lg">
+                    <span id="btn-text">顯示更多學術發表 (18+)</span>
+                    <i id="btn-icon" class="fa-solid fa-chevron-down group-hover:translate-y-1 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Experience Timeline -->
+    <section id="experience" class="py-24 bg-slate-850 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#64748b 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <h2 class="text-3xl font-bold text-white mb-12 text-center reveal">經歷與學歷</h2>
+            
+            <div class="relative border-l-2 border-slate-700 ml-4 space-y-12">
+                <!-- Job 1 -->
+                <div class="relative pl-8 reveal">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-slate-800"></span>
+                    <div class="glass-card p-6 rounded-xl hover:border-primary/50 transition-colors">
+                        <span class="text-xs font-mono text-primary mb-2 block">2024 - Present</span>
+                        <h3 class="text-xl font-bold text-white">博士級研究員 (研發替代役)</h3>
+                        <p class="text-slate-400 text-sm mb-4">財團法人國家同步輻射研究中心 (NSRRC) - TPS 15A</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            負責 TPS 15A1 光束線（微米單晶 X 光繞射）的建置、維運及用戶服務。並且有 TLS 03A1, 20A1, 17C1 及 TPS 23A1 光束線使用的用戶經驗。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="relative pl-8 reveal">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-600 border-4 border-slate-800"></span>
+                    <div class="glass-card p-6 rounded-xl">
+                        <span class="text-xs font-mono text-slate-500 mb-2 block">2018 - 2024</span>
+                        <h3 class="text-xl font-bold text-white">物理系 博士</h3>
+                        <p class="text-slate-400 text-sm mb-4">國立東華大學 (畢業於 2024/07)</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            專攻磁性材料、奈米科技與 X 光頻譜分析。指導教授：吳勝允教授 (Modern NanoMag Lab)。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Projects Section -->
+    <section id="projects" class="py-24 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">亮點專案實作</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                <p class="mt-4 text-slate-400">從物理原理到軟硬體整合的全端工程展示</p>
+            </div>
+
+            <!-- Project 1: Liquid Helix -->
+            <div class="glass-card rounded-2xl p-8 mb-24 reveal">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="relative group space-y-4">
+                        <!-- 主圖：自動化設備實體照片 -->
+                        <div class="img-zoom-container rounded-xl border border-slate-700 shadow-2xl aspect-video relative bg-slate-800">
+                             <!-- 請替換下方的 'https://example.com/your-liquid-setup.jpg' -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQTTtq3q2JaqR61-HMcfItDtATtt3zFKS6lHKIiT42ZpJHk?width=1654&height=931" 
+                                  alt="自動化液體螺旋觀測設備實體">
+                             <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2 py-1 text-xs rounded text-white">設備實體圖</div>
+                        </div>
+                         <!-- 副圖 -->
+                         <div class="grid grid-cols-2 gap-4">
+                            <div class="img-zoom-container rounded-lg border border-slate-700 aspect-video relative bg-slate-800">
+                                <!-- 請替換下方的 'https://example.com/your-liquid-result.jpg' -->
+                                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQRLM5v4PUT5TKDLXI8GU6ngAfN86MR6eCrQt7xiRk0rNGE?width=1244&height=375" 
+                                     alt="液體螺旋觀測影像">
+                                <div class="absolute bottom-1 left-1 bg-slate-900/80 px-1 text-[10px] rounded text-white">實驗觀測影像</div>
+                            </div>
+                            <div class="img-zoom-container rounded-lg border border-slate-700 aspect-video relative bg-slate-800">
+                                <!-- 請替換下方的 'https://example.com/your-gui.jpg' -->
+                                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQS0-V38jFpdQp2ji4EXEjdhASWgKpNpeorbjJYjUsK14Nk?width=1062&height=472" 
+                                     alt="PyQt5 GUI 介面">
+                                <div class="absolute bottom-1 left-1 bg-slate-900/80 px-1 text-[10px] rounded text-white">自製 GUI 介面</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Full-Stack Hardware</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">自動化液體螺旋觀測設備</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            針對流體力學中的 "Teapot Effect" 與 3D 列印噴頭阻塞問題，開發了一套自動化觀測系統。解決了傳統手動實驗無法精確控制流速與角度的痛點。
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>機構設計：</strong>使用 Tinkercad 與 Solidworks 設計垂直圓柱與噴頭固定座，並以 3D 列印製作。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>韌體控制：</strong>整合 Arduino 與 Marlin Firmware，精確控制步進馬達擠出量。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>軟體介面：</strong>開發 <code class="text-primary bg-slate-800 px-1 rounded">Python PyQt5</code> GUI，即時調整參數 (Speed, Angle, Extrusion) 並生成 G-code 控制機器。</span>
+                            </li>
+                             <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>數據分析：</strong>使用 ImageJ 分析影像，驗證 Weber Number 與偏轉角度的理論關係。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: High Pressure XRD -->
+             <div class="glass-card rounded-2xl p-8 reveal">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-full border border-accent/20">Instrument Control</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">高壓單晶 X 光繞射控制系統</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            為了應對高壓結晶學對精確對光與快速數據收集的需求，開發了整合馬達控制與偵測器讀取的 Master GUI。此系統大幅減少了人工操作的時間與誤差。
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>直觀操作：</strong>使用 PyQt5 (Qt Designer) 打造完整控制面板，整合馬達狀態、影像顯示與掃描參數設定。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>硬體串接：</strong>透過 API 連結 Dectris 9M 偵測器，即時獲取並解析晶體繞射點 (Diffraction Spots) 數據。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>即時擬合：</strong>實現 <code class="text-primary bg-slate-800 px-1 rounded">Real-time Fitting</code> (Gaussian/Lorentzian)，自動計算 Peak Center 並驅動馬達校正晶體位置。</span>
+                            </li>
+                             <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>自動化流程：</strong>支援多軸掃描 (Scan)、自動置中 (Auto Center) 與數據存檔功能。</span>
+                            </li>
+                        </ul>
+                    </div>
+                     <!-- 右側圖片區：XRD GUI -->
+                    <div class="order-1 md:order-2 relative group">
+                        <div class="img-zoom-container rounded-xl overflow-hidden border border-slate-700 shadow-2xl bg-slate-800 aspect-[4/3] relative">
+                             <!-- XRD 圖片 -->
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQS9L6zQc_GORrpMgy1Cy4_9Ae06b8FewIiSKumbZz1BoEQ?width=1600&height=865" 
+                                  alt="XRD Control GUI Interface" class="bg-slate-800">
+                             <div class="absolute bottom-2 right-2 bg-slate-900/80 px-2 py-1 text-xs rounded text-white">PyQt5 控制介面實作</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Honors Section -->
+    <section id="honors" class="py-24 bg-slate-850">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-12 text-center reveal">榮譽與認證</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- NVIDIA -->
+                <div class="glass-card p-8 rounded-2xl text-center group hover:border-[#76b900]/50 transition-colors cursor-pointer reveal" 
+                     onclick="openModal('nvidia')">
+                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microchip text-2xl text-[#76b900]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">NVIDIA DLI Certificate</h3>
+                    <p class="text-sm text-slate-400 mb-4">Fundamentals of Accelerated Data Science</p>
+                    <div class="text-xs font-mono text-slate-500 bg-slate-900 py-1 px-3 rounded-full inline-block">Issued: 2025/12</div>
+                    <p class="text-xs text-primary mt-4 opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-expand mr-1"></i> 點擊查看證書</p>
+                </div>
+
+                <!-- ActInSpace -->
+                <div class="glass-card p-8 rounded-2xl text-center group hover:border-yellow-500/50 transition-colors cursor-pointer reveal" 
+                     onclick="openModal('actinspace')" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Merit Award</h3>
+                    <p class="text-sm text-slate-400 mb-4">ActInSpace 2018</p>
+                    <p class="text-xs text-slate-500">Taiwan-France Space Innovation Hackathon<br>(Team: Have Fun)</p>
+                    <p class="text-xs text-primary mt-4 opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-expand mr-1"></i> 點擊查看證書</p>
+                </div>
+
+                <!-- IPAS -->
+                <div class="glass-card p-8 rounded-2xl text-center group hover:border-blue-500/50 transition-colors cursor-pointer reveal" 
+                     onclick="openModal('ipas')" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-certificate text-2xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">IPAS Certified</h3>
+                    <p class="text-sm text-slate-400 mb-4">經濟部產業人才能力鑑定</p>
+                    <p class="text-xs text-slate-500">3D列印積層製造工程師 - 初級</p>
+                    <p class="text-xs text-primary mt-4 opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-expand mr-1"></i> 點擊查看證書</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Modals (Pre-loaded for instant switching) -->
+    
+    <!-- NVIDIA Modal -->
+    <div id="modal-nvidia" class="cert-modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" onclick="closeModal('nvidia')">
+        <div class="relative max-w-4xl max-h-[90vh] p-4" onclick="event.stopPropagation()">
+            <button class="absolute -top-10 right-0 text-white hover:text-primary text-2xl transition-colors" onclick="closeModal('nvidia')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
+                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQQLXpJXeioCSZeymuQobCj8AUYSAUEWJUV-8F8B5w2j-Ik?width=618&height=498" 
+                     alt="NVIDIA DLI Certificate" class="max-h-[80vh] w-auto object-contain rounded">
+                <div class="text-center mt-4 pb-2">
+                    <h3 class="text-lg font-bold text-white">NVIDIA DLI Certificate</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ActInSpace Modal -->
+    <div id="modal-actinspace" class="cert-modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" onclick="closeModal('actinspace')">
+        <div class="relative max-w-4xl max-h-[90vh] p-4" onclick="event.stopPropagation()">
+            <button class="absolute -top-10 right-0 text-white hover:text-primary text-2xl transition-colors" onclick="closeModal('actinspace')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
+                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQR4jChLXVqVSb8C_tYRxHIbASGbybXUDmz5of51K8jQ7pw?width=425&height=606" 
+                     alt="ActInSpace Merit Award" class="max-h-[80vh] w-auto object-contain rounded">
+                <div class="text-center mt-4 pb-2">
+                    <h3 class="text-lg font-bold text-white">ActInSpace Merit Award</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IPAS Modal -->
+    <div id="modal-ipas" class="cert-modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" onclick="closeModal('ipas')">
+        <div class="relative max-w-4xl max-h-[90vh] p-4" onclick="event.stopPropagation()">
+            <button class="absolute -top-10 right-0 text-white hover:text-primary text-2xl transition-colors" onclick="closeModal('ipas')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
+                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQS1_l8XMUCPQ5kPzVABMbxdAeENwlbY1sJ_O3K0vtqRDwg?width=675&height=958" 
+                     alt="IPAS Certified" class="max-h-[80vh] w-auto object-contain rounded">
+                <div class="text-center mt-4 pb-2">
+                    <h3 class="text-lg font-bold text-white">IPAS Certified</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold text-white mb-6">Let's Connect</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-8 mb-8 items-center">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ho.mk@nsrrc.org.tw" target="_blank" class="flex items-center gap-3 px-6 py-3 bg-slate-800 rounded-xl hover:bg-slate-700 hover:text-primary transition-all border border-slate-700 group">
+                    <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-xs text-slate-400">Email Me</div>
+                        <div class="font-bold text-white group-hover:text-primary transition-colors">ho.mk@nsrrc.org.tw</div>
+                    </div>
+                </a>
+                
+                <a href="tel:+886976609011" class="flex items-center gap-3 px-6 py-3 bg-slate-800 rounded-xl hover:bg-slate-700 hover:text-green-400 transition-all border border-slate-700 group">
+                    <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-xs text-slate-400">Call Me</div>
+                        <div class="font-bold text-white group-hover:text-green-400 transition-colors">+886 976609011</div>
+                    </div>
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm">
+                &copy; 2025 Ming-Kang Ho. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Scroll Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Toggle Publications
+        function togglePubs() {
+            const morePubs = document.getElementById('more-pubs');
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+            
+            if (morePubs.classList.contains('expanded')) {
+                morePubs.classList.remove('expanded');
+                btnText.innerText = "顯示更多學術發表 (18+)";
+                btnIcon.classList.remove('rotate-180');
+            } else {
+                morePubs.classList.add('expanded');
+                btnText.innerText = "收起部分發表";
+                btnIcon.classList.add('rotate-180');
+            }
+        }
+
+        // Modal Logic - Instant Show
+        function openModal(id) {
+            const modal = document.getElementById('modal-' + id);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById('modal-' + id);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.cert-modal').forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
