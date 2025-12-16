@@ -110,19 +110,7 @@
             pointer-events: auto;
         }
 
-        /* Smooth Expansion Animation */
-        .expandable-content {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-in-out;
-        }
-        .expandable-content.expanded {
-            max-height: 500px; /* Adjust based on content */
-            opacity: 1;
-        }
-        
-        /* Specific for publications to allow large height */
+        /* Expanded Pubs Animation */
         #more-pubs {
             max-height: 0;
             opacity: 0;
@@ -131,6 +119,18 @@
         }
         #more-pubs.expanded {
             max-height: 10000px; 
+            opacity: 1;
+        }
+
+        /* Smooth Expansion Animation for Bio */
+        .expandable-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-in-out;
+        }
+        .expandable-content.expanded {
+            max-height: 500px; /* Adjust based on content */
             opacity: 1;
         }
     </style>
@@ -285,10 +285,10 @@
                                 <span class="text-primary font-bold">Highlight:</span> 開發新型鉍摻雜燃燒合成法，顯著提升濕度感測靈敏度與磁熱效應。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/BiCoCr2O4.jpg', 'Advancing Humidity Sensing...')">
                              <!-- Image for Paper 1 (BiCoCr2O4) -->
                              <img src="assets/BiCoCr2O4.jpg" 
-                                  alt="Paper 1 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                                  alt="Paper 1 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
@@ -307,10 +307,10 @@
                                 <span class="text-purple-400 font-bold">Highlight:</span> 深入探討 ZnFe₂O₄/CoCr₂O₄ 奈米複合材料的晶體結構、形貌、磁性與電子結構特性。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/ZnFe2O4.png', 'Study of Crystal Structure...')">
                              <!-- Image for Paper 2 (ZnFe2O4) -->
                              <img src="assets/ZnFe2O4.png" 
-                                  alt="Paper 2 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                                  alt="Paper 2 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
@@ -329,10 +329,10 @@
                                 <span class="text-red-400 font-bold">Highlight:</span> 研究高效能 Bi 摻雜 NiFe₂O₄ 奈米粒子，應用於先進超級電容器及室溫磁記憶體。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/NiFe2O4.jpg', 'High-Performance Bi-Doped NiFe2O4...')">
                              <!-- Image for Paper 3 (NiFe2O4) -->
                              <img src="assets/NiFe2O4.jpg" 
-                                  alt="Paper 3 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                                  alt="Paper 3 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
@@ -351,10 +351,10 @@
                                 <span class="text-green-400 font-bold">Highlight:</span> 結合 YOLOv8 深度學習模型，自動識別並標註指紋特徵點，提升鑑識科學自動化程度。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/YOLOv8.jpg', 'Investigating Fe-doped Yttrium Oxide...')">
                              <!-- Image for Paper 4 (YOLOv8) -->
                              <img src="assets/YOLOv8.jpg" 
-                                  alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
+                                  alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
@@ -676,6 +676,21 @@
         </div>
     </section>
 
+    <!-- Generic Image Viewer Modal -->
+    <div id="image-viewer-modal" class="cert-modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" onclick="closeImageModal()">
+        <div class="relative max-w-4xl max-h-[90vh] p-4" onclick="event.stopPropagation()">
+            <button class="absolute -top-10 right-0 text-white hover:text-primary text-2xl transition-colors" onclick="closeImageModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
+                <img id="viewer-img" src="" alt="Full Image" class="max-h-[80vh] w-auto object-contain rounded">
+                <div class="text-center mt-4 pb-2">
+                    <h3 id="viewer-title" class="text-lg font-bold text-white"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Certificate Modals (Pre-loaded for instant switching) -->
     
     <!-- NVIDIA Modal -->
@@ -805,12 +820,31 @@
             }
         }
 
-        // Modal Logic - Instant Show
+        // --- Generic Image Viewer Logic ---
+        function showImageModal(imgSrc, title) {
+            const modal = document.getElementById('image-viewer-modal');
+            const modalImg = document.getElementById('viewer-img');
+            const modalTitle = document.getElementById('viewer-title');
+            
+            modalImg.src = imgSrc;
+            modalTitle.textContent = title;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('image-viewer-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- Original Cert Modal Logic (Pre-rendered) ---
         function openModal(id) {
             const modal = document.getElementById('modal-' + id);
             if (modal) {
                 modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden'; 
             }
         }
 
@@ -818,11 +852,11 @@
             const modal = document.getElementById('modal-' + id);
             if (modal) {
                 modal.classList.add('hidden');
-                document.body.style.overflow = 'auto'; // Restore scrolling
+                document.body.style.overflow = 'auto'; 
             }
         }
 
-        // Close modal on Escape key
+        // Close all modals on Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 document.querySelectorAll('.cert-modal').forEach(modal => {
