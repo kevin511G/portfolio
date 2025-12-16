@@ -106,14 +106,14 @@
             pointer-events: auto;
         }
 
-        /* Expanded Pubs Animation */
-        #more-pubs {
+        /* Expanded Animation */
+        .expandable-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out;
         }
-        #more-pubs.expanded {
-            max-height: 10000px; /* Increased to accommodate all papers */
+        .expandable-content.expanded {
+            max-height: 10000px; /* Large enough value */
             transition: max-height 1s ease-in;
         }
     </style>
@@ -141,12 +141,12 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="about" class="min-h-screen flex items-center justify-center relative pt-16">
+    <section id="about" class="min-h-screen flex flex-col justify-center relative pt-24 pb-12">
         <!-- Background Glow -->
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl -z-10"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-start">
             <div class="order-2 md:order-1 animate-fade-in-up">
                 <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
                     Physics PhD • R&D Engineer
@@ -172,13 +172,29 @@
                     </div>
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex flex-wrap gap-4 mb-8">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ho.mk@nsrrc.org.tw" target="_blank" class="px-6 py-3 bg-primary text-slate-900 font-bold rounded-lg hover:bg-sky-300 transition-colors shadow-lg shadow-primary/20">
                         <i class="fa-solid fa-envelope mr-2"></i> 聯絡我
                     </a>
-                    <a href="#projects" class="px-6 py-3 border border-slate-600 rounded-lg hover:bg-slate-800 transition-colors">
-                        查看專案
-                    </a>
+                    <button onclick="toggleBio()" class="px-6 py-3 border border-slate-600 text-slate-300 rounded-lg hover:bg-slate-800 hover:text-white transition-colors group flex items-center gap-2">
+                        <span>關於我</span>
+                        <i id="bio-icon" class="fa-solid fa-chevron-down text-xs transition-transform group-hover:translate-y-1"></i>
+                    </button>
+                </div>
+                
+                <!-- Collapsible Bio Section -->
+                <div id="full-bio" class="expandable-content border-l-2 border-slate-700 pl-6 ml-2">
+                    <div class="pb-4 text-slate-300 space-y-4 leading-relaxed">
+                        <p>
+                            我是一位熱衷於探究事物本質的物理學家，同時也是一位樂於動手解決問題的工程師。我的研究生涯始於對<strong class="text-white">磁性材料</strong>與<strong class="text-white">奈米科技</strong>的好奇，在國立東華大學攻讀博士學位期間，我專注於利用 X 光頻譜分析技術，深入探討材料在極端條件下的物理特性。
+                        </p>
+                        <p>
+                            除了學術研究，我擁有強烈的<strong class="text-white">實作精神 (Maker Spirit)</strong>。我不僅自行設計並組裝實驗設備（如自動化液體螺旋觀測設備、真空濕度量測系統），更擅長編寫程式（Python, Arduino）來實現自動化控制與數據分析。這種「軟硬整合」的能力，讓我不僅能提出理論假設，更能親手打造驗證這些假設的工具。
+                        </p>
+                        <p>
+                            目前在國家同步輻射研究中心 (NSRRC) 擔任博士級研究員，負責高階光束線站的建置與維運。我致力於引入 <strong class="text-white">AI 深度學習</strong> 技術來優化實驗流程與影像分析，期望能為科學研究帶來更高效、更精準的解決方案。
+                        </p>
+                    </div>
                 </div>
             </div>
             
@@ -294,7 +310,7 @@
                             <p class="text-sm text-slate-400">Tsu-En Hsu, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
                         </div>
                         <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
-                             <!-- Image for Paper 3 (NiFe2O4) -->
+                             <!-- Image for Paper 3 -->
                              <img src="assets/NiFe2O4.jpg" 
                                   alt="Paper 3 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
                         </div>
@@ -313,7 +329,7 @@
                             <p class="text-sm text-slate-400">K. Manjunatha, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
                         </div>
                         <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative">
-                             <!-- Image for Paper 4 (ZnFe2O4) -->
+                             <!-- Image for Paper 4 -->
                              <img src="assets/ZnFe2O4.png" 
                                   alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0">
                         </div>
@@ -495,7 +511,49 @@
                 <p class="mt-4 text-slate-400">從物理原理到軟硬體整合的全端工程展示</p>
             </div>
 
-            <!-- Project 1: Liquid Helix -->
+            <!-- Project 1: High Pressure XRD (Swap Order) -->
+             <div class="glass-card rounded-2xl p-8 mb-24 reveal">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-full border border-accent/20">Instrument Control</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">高壓單晶 X 光繞射控制系統</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            為了應對高壓結晶學對精確對光與快速數據收集的需求，開發了整合馬達控制與偵測器讀取的 Master GUI。此系統大幅減少了人工操作的時間與誤差。
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>直觀操作：</strong>使用 PyQt5 (Qt Designer) 打造完整控制面板，整合馬達狀態、影像顯示與掃描參數設定。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>硬體串接：</strong>透過 API 連結 Dectris 9M 偵測器，即時獲取並解析晶體繞射點 (Diffraction Spots) 數據。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>即時擬合：</strong>實現 <code class="text-primary bg-slate-800 px-1 rounded">Real-time Fitting</code> (Gaussian/Lorentzian)，自動計算 Peak Center 並驅動馬達校正晶體位置。</span>
+                            </li>
+                             <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>自動化流程：</strong>支援多軸掃描 (Scan)、自動置中 (Auto Center) 與數據存檔功能。</span>
+                            </li>
+                        </ul>
+                    </div>
+                     <!-- 右側圖片區：XRD GUI -->
+                    <div class="order-1 md:order-2 relative group">
+                        <div class="img-zoom-container rounded-xl overflow-hidden border border-slate-700 shadow-2xl bg-slate-800 aspect-[4/3] relative">
+                             <!-- XRD 圖片 -->
+                             <img src="assets/project_xrd.jpg" 
+                                  alt="XRD Control GUI Interface" class="bg-slate-800">
+                             <div class="absolute bottom-2 right-2 bg-slate-900/80 px-2 py-1 text-xs rounded text-white">PyQt5 控制介面實作</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Liquid Helix (Swap Order) -->
             <div class="glass-card rounded-2xl p-8 mb-24 reveal">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="relative group space-y-4">
@@ -548,48 +606,6 @@
                                 <span><strong>數據分析：</strong>使用 ImageJ 分析影像，驗證 Weber Number 與偏轉角度的理論關係。</span>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2: High Pressure XRD -->
-             <div class="glass-card rounded-2xl p-8 reveal">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="order-2 md:order-1">
-                        <div class="flex items-center gap-3 mb-4">
-                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-full border border-accent/20">Instrument Control</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-4">高壓單晶 X 光繞射控制系統</h3>
-                        <p class="text-slate-400 mb-6 leading-relaxed">
-                            為了應對高壓結晶學對精確對光與快速數據收集的需求，開發了整合馬達控制與偵測器讀取的 Master GUI。此系統大幅減少了人工操作的時間與誤差。
-                        </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-start gap-3 text-slate-300">
-                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>直觀操作：</strong>使用 PyQt5 (Qt Designer) 打造完整控制面板，整合馬達狀態、影像顯示與掃描參數設定。</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-slate-300">
-                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>硬體串接：</strong>透過 API 連結 Dectris 9M 偵測器，即時獲取並解析晶體繞射點 (Diffraction Spots) 數據。</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-slate-300">
-                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>即時擬合：</strong>實現 <code class="text-primary bg-slate-800 px-1 rounded">Real-time Fitting</code> (Gaussian/Lorentzian)，自動計算 Peak Center 並驅動馬達校正晶體位置。</span>
-                            </li>
-                             <li class="flex items-start gap-3 text-slate-300">
-                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>自動化流程：</strong>支援多軸掃描 (Scan)、自動置中 (Auto Center) 與數據存檔功能。</span>
-                            </li>
-                        </ul>
-                    </div>
-                     <!-- 右側圖片區：XRD GUI -->
-                    <div class="order-1 md:order-2 relative group">
-                        <div class="img-zoom-container rounded-xl overflow-hidden border border-slate-700 shadow-2xl bg-slate-800 aspect-[4/3] relative">
-                             <!-- XRD 圖片 -->
-                             <img src="assets/project_xrd.jpg" 
-                                  alt="XRD Control GUI Interface" class="bg-slate-800">
-                             <div class="absolute bottom-2 right-2 bg-slate-900/80 px-2 py-1 text-xs rounded text-white">PyQt5 控制介面實作</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -738,6 +754,20 @@
         }
         window.addEventListener("scroll", reveal);
         reveal();
+
+        // Toggle Bio
+        function toggleBio() {
+            const bioContent = document.getElementById('full-bio');
+            const bioIcon = document.getElementById('bio-icon');
+            
+            if (bioContent.classList.contains('expanded')) {
+                bioContent.classList.remove('expanded');
+                bioIcon.classList.remove('rotate-180');
+            } else {
+                bioContent.classList.add('expanded');
+                bioIcon.classList.add('rotate-180');
+            }
+        }
 
         // Toggle Publications
         function togglePubs() {
