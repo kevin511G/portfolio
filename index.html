@@ -110,40 +110,28 @@
             pointer-events: auto;
         }
 
-        /* Expanded Pubs Animation */
+        /* Smooth Expansion Animation */
+        .expandable-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-in-out;
+        }
+        .expandable-content.expanded {
+            max-height: 500px; /* Adjust based on content */
+            opacity: 1;
+        }
+        
+        /* Specific for publications to allow large height */
         #more-pubs {
             max-height: 0;
+            opacity: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
+            transition: max-height 0.8s ease-in-out, opacity 0.8s ease-in-out;
         }
         #more-pubs.expanded {
-            max-height: 10000px; /* Increased to accommodate all papers */
-            transition: max-height 1s ease-in;
-        }
-
-        /* Video Background for specific card */
-        .video-card-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .video-card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.75); /* Dark overlay */
-            z-index: 1;
-            transition: background 0.3s ease;
-        }
-        .video-card-content {
-            position: relative;
-            z-index: 2;
+            max-height: 10000px; 
+            opacity: 1;
         }
     </style>
 </head>
@@ -201,13 +189,29 @@
                     </div>
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex flex-wrap gap-4 mb-8">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ho.mk@nsrrc.org.tw" target="_blank" class="px-6 py-3 bg-primary text-slate-900 font-bold rounded-lg hover:bg-sky-300 transition-colors shadow-lg shadow-primary/20">
                         <i class="fa-solid fa-envelope mr-2"></i> 聯絡我
                     </a>
-                    <a href="#projects" class="px-6 py-3 border border-slate-600 rounded-lg hover:bg-slate-800 transition-colors">
-                        查看專案
-                    </a>
+                    <button onclick="toggleBio()" class="px-6 py-3 border border-slate-600 text-slate-300 rounded-lg hover:bg-slate-800 hover:text-white transition-colors group flex items-center gap-2">
+                        <span>關於我</span>
+                        <i id="bio-icon" class="fa-solid fa-chevron-down text-xs transition-transform group-hover:translate-y-1"></i>
+                    </button>
+                </div>
+                
+                <!-- Collapsible Bio Section -->
+                <div id="full-bio" class="expandable-content border-l-2 border-slate-700 pl-6 ml-2">
+                    <div class="pb-4 text-slate-300 space-y-4 leading-relaxed">
+                        <p>
+                            我是一位熱衷於探究事物本質的物理學家，同時也是一位樂於動手解決問題的工程師。我的研究生涯始於對<strong class="text-white">磁性材料</strong>與<strong class="text-white">奈米科技</strong>的好奇，在國立東華大學攻讀博士學位期間，我專注於利用 X 光頻譜分析技術，深入探討材料在極端條件下的物理特性。
+                        </p>
+                        <p>
+                            除了學術研究，我擁有強烈的<strong class="text-white">實作精神 (Maker Spirit)</strong>。我不僅自行設計並組裝實驗設備（如自動化液體螺旋觀測設備、真空濕度量測系統），更擅長編寫程式（Python, Arduino）來實現自動化控制與數據分析。這種「軟硬整合」的能力，讓我不僅能提出理論假設，更能親手打造驗證這些假設的工具。
+                        </p>
+                        <p>
+                            目前在國家同步輻射研究中心 (NSRRC) 擔任博士級研究員，負責高階光束線站的建置與維運。我致力於引入 <strong class="text-white">AI 深度學習</strong> 技術來優化實驗流程與影像分析，期望能為科學研究帶來更高效、更精準的解決方案。
+                        </p>
+                    </div>
                 </div>
             </div>
             
@@ -347,9 +351,9 @@
                                 <span class="text-green-400 font-bold">Highlight:</span> 結合 YOLOv8 深度學習模型，自動識別並標註指紋特徵點，提升鑑識科學自動化程度。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/YOLOv8.jpg', 'Investigating Fe-doped Yttrium Oxide...')">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('http://googleusercontent.com/image_generation_content/0', 'Investigating Fe-doped Yttrium Oxide...')">
                              <!-- Image for Paper 4 (YOLOv8) -->
-                             <img src="assets/YOLOv8.jpg" 
+                             <img src="http://googleusercontent.com/image_generation_content/0" 
                                   alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
@@ -526,22 +530,7 @@
                 <p class="mt-4 text-slate-400">從物理原理到軟硬體整合的全端工程展示</p>
             </div>
 
-            <!-- Project 1: TPS 15A1 Video (Card Background Style) - Moved to top as per request "Project 1" -->
-             <!-- Wait, user asked to swap project order earlier, but now asked for "Project 3" to be single cell background video. -->
-             <!-- Let's assume user wants: 
-                  1. TPS 15A1 Video (Background Card)
-                  2. XRD Control
-                  3. Liquid Helix
-                  OR
-                  1. XRD Control
-                  2. Liquid Helix
-                  3. TPS 15A1 Video
-                  
-                  The user asked: "I want to ask if the video here can become the background of this single cell?" referring to the video card.
-                  Let's keep the order: XRD -> Liquid -> Video (as Project 3).
-             -->
-
-            <!-- Project 1: High Pressure XRD -->
+            <!-- Project 1: High Pressure XRD (Swap Order) -->
              <div class="glass-card rounded-2xl p-8 mb-24 reveal">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="order-2 md:order-1">
@@ -583,7 +572,42 @@
                 </div>
             </div>
 
-            <!-- Project 2: Liquid Helix -->
+            <!-- Project 2: TPS 15A1 Video (Card Background Style) -->
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700 mb-24 reveal group h-[500px] flex items-center justify-center">
+                <!-- Video Background for this card ONLY -->
+                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+                    <!-- Updated video file name -->
+                    <source src="assets/stoe_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <!-- Dark Overlay to make text readable -->
+                <div class="absolute inset-0 bg-slate-900/70 transition-opacity duration-500 group-hover:bg-slate-900/60"></div>
+
+                <!-- Content Overlay -->
+                <div class="relative z-10 p-8 md:p-12 max-w-4xl text-center">
+                    <div class="inline-block px-3 py-1 mb-4 text-primary text-xs font-bold rounded-full border border-primary/30 bg-slate-900/50 backdrop-blur-md shadow-lg">
+                        Experiment Setup
+                    </div>
+                    <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-xl tracking-wide">TPS 15A1 實驗儀器實作紀錄</h3>
+                    <p class="text-slate-100 mb-8 leading-relaxed text-lg drop-shadow-md font-light">
+                        紀錄於 TPS 15A1 線站進行的實驗儀器架設、調校與實際運作過程。<br>展現面對複雜實驗環境時，解決現場問題與精準操作的實力證明。
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
+                            <i class="fa-solid fa-check text-green-400"></i> 光束線站架設
+                         </span>
+                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
+                            <i class="fa-solid fa-check text-green-400"></i> 精密儀器調校
+                         </span>
+                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
+                            <i class="fa-solid fa-check text-green-400"></i> 真空系統操作
+                         </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Liquid Helix (Swap Order) -->
             <div class="glass-card rounded-2xl p-8 mb-24 reveal">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="relative group space-y-4">
@@ -639,42 +663,6 @@
                     </div>
                 </div>
             </div>
-
-             <!-- Project 3: TPS 15A1 Video (Card Background Style) -->
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700 mb-24 reveal group h-[500px] flex items-center justify-center">
-                <!-- Video Background for this card ONLY -->
-                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-                    <!-- Updated video file name -->
-                    <source src="assets/stoe_video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                
-                <!-- Dark Overlay to make text readable -->
-                <div class="absolute inset-0 bg-slate-900/70 transition-opacity duration-500 group-hover:bg-slate-900/60"></div>
-
-                <!-- Content Overlay -->
-                <div class="relative z-10 p-8 md:p-12 max-w-4xl text-center">
-                    <div class="inline-block px-3 py-1 mb-4 text-primary text-xs font-bold rounded-full border border-primary/30 bg-slate-900/50 backdrop-blur-md shadow-lg">
-                        Experiment Setup
-                    </div>
-                    <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-xl tracking-wide">TPS 15A1 實驗儀器實作紀錄</h3>
-                    <p class="text-slate-100 mb-8 leading-relaxed text-lg drop-shadow-md font-light">
-                        紀錄於 TPS 15A1 線站進行的實驗儀器架設、調校與實際運作過程。<br>展現面對複雜實驗環境時，解決現場問題與精準操作的實力證明。
-                    </p>
-                    <div class="flex flex-wrap justify-center gap-4">
-                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
-                            <i class="fa-solid fa-check text-green-400"></i> 光束線站架設
-                         </span>
-                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
-                            <i class="fa-solid fa-check text-green-400"></i> 精密儀器調校
-                         </span>
-                         <span class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-500/50 backdrop-blur-sm text-sm text-slate-200 shadow-md">
-                            <i class="fa-solid fa-check text-green-400"></i> 真空系統操作
-                         </span>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -722,6 +710,21 @@
             </div>
         </div>
     </section>
+
+    <!-- Generic Image Viewer Modal -->
+    <div id="image-viewer-modal" class="cert-modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" onclick="closeImageModal()">
+        <div class="relative max-w-4xl max-h-[90vh] p-4" onclick="event.stopPropagation()">
+            <button class="absolute -top-10 right-0 text-white hover:text-primary text-2xl transition-colors" onclick="closeImageModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
+                <img id="viewer-img" src="" alt="Full Image" class="max-h-[80vh] w-auto object-contain rounded">
+                <div class="text-center mt-4 pb-2">
+                    <h3 id="viewer-title" class="text-lg font-bold text-white"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Certificate Modals (Pre-loaded for instant switching) -->
     
@@ -806,6 +809,37 @@
 
     <!-- Scripts -->
     <script>
+        // Define toggleBio in global scope to ensure it's accessible
+        window.toggleBio = function() {
+            const bioContent = document.getElementById('full-bio');
+            const bioIcon = document.getElementById('bio-icon');
+            
+            if (bioContent.classList.contains('expanded')) {
+                bioContent.classList.remove('expanded');
+                bioIcon.classList.remove('rotate-180');
+            } else {
+                bioContent.classList.add('expanded');
+                bioIcon.classList.add('rotate-180');
+            }
+        };
+
+        // Define togglePubs in global scope
+        window.togglePubs = function() {
+            const morePubs = document.getElementById('more-pubs');
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+            
+            if (morePubs.classList.contains('expanded')) {
+                morePubs.classList.remove('expanded');
+                btnText.innerText = "顯示更多學術發表 (18+)";
+                btnIcon.classList.remove('rotate-180');
+            } else {
+                morePubs.classList.add('expanded');
+                btnText.innerText = "收起部分發表";
+                btnIcon.classList.add('rotate-180');
+            }
+        };
+
         // Scroll Animation
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
@@ -821,39 +855,8 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // Toggle Bio
-        function toggleBio() {
-            const bioContent = document.getElementById('full-bio');
-            const bioIcon = document.getElementById('bio-icon');
-            
-            if (bioContent.classList.contains('expanded')) {
-                bioContent.classList.remove('expanded');
-                bioIcon.classList.remove('rotate-180');
-            } else {
-                bioContent.classList.add('expanded');
-                bioIcon.classList.add('rotate-180');
-            }
-        }
-
-        // Toggle Publications
-        function togglePubs() {
-            const morePubs = document.getElementById('more-pubs');
-            const btnText = document.getElementById('btn-text');
-            const btnIcon = document.getElementById('btn-icon');
-            
-            if (morePubs.classList.contains('expanded')) {
-                morePubs.classList.remove('expanded');
-                btnText.innerText = "顯示更多學術發表 (18+)";
-                btnIcon.classList.remove('rotate-180');
-            } else {
-                morePubs.classList.add('expanded');
-                btnText.innerText = "收起部分發表";
-                btnIcon.classList.add('rotate-180');
-            }
-        }
-
         // --- Generic Image Viewer Logic ---
-        function showImageModal(imgSrc, title) {
+        window.showImageModal = function(imgSrc, title) {
             const modal = document.getElementById('image-viewer-modal');
             const modalImg = document.getElementById('viewer-img');
             const modalTitle = document.getElementById('viewer-title');
@@ -863,30 +866,30 @@
             
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-        }
+        };
 
-        function closeImageModal() {
+        window.closeImageModal = function() {
             const modal = document.getElementById('image-viewer-modal');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
+        };
 
         // --- Original Cert Modal Logic (Pre-rendered) ---
-        function openModal(id) {
+        window.openModal = function(id) {
             const modal = document.getElementById('modal-' + id);
             if (modal) {
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden'; 
             }
-        }
+        };
 
-        function closeModal(id) {
+        window.closeModal = function(id) {
             const modal = document.getElementById('modal-' + id);
             if (modal) {
                 modal.classList.add('hidden');
                 document.body.style.overflow = 'auto'; 
             }
-        }
+        };
 
         // Close all modals on Escape key
         document.addEventListener('keydown', function(event) {
