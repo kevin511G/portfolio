@@ -68,8 +68,8 @@
         }
 
         .glass-card {
-            background: rgba(15, 23, 42, 0.6); /* More transparent for video bg */
-            backdrop-filter: blur(12px);
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -133,44 +133,9 @@
             max-height: 10000px; 
             opacity: 1;
         }
-
-        /* Video Background Styles */
-        #bg-video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-        #bg-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        #bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.85); /* Dark overlay to make text readable */
-            z-index: -1;
-        }
     </style>
 </head>
-<body class="text-slate-100 font-sans selection:bg-primary selection:text-slate-900 overflow-x-hidden">
-
-    <!-- Background Video -->
-    <div id="bg-video-container">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="assets/20251217_061155000_iOS.MOV" type="video/mp4">
-            <source src="assets/20251217_061155000_iOS.MOV" type="video/quicktime">
-        </video>
-    </div>
-    <!-- Overlay to darken video -->
-    <div id="bg-overlay"></div>
+<body class="bg-slate-900 text-slate-100 font-sans selection:bg-primary selection:text-slate-900 overflow-x-hidden">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-card border-b border-slate-700/50">
@@ -194,23 +159,25 @@
 
     <!-- Hero Section -->
     <section id="about" class="min-h-screen flex items-center justify-center relative pt-16">
-        <!-- Background Glow removed as video replaces it -->
+        <!-- Background Glow -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl -z-10"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
             <div class="order-2 md:order-1 animate-fade-in-up">
-                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20 backdrop-blur-md">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
                     Physics PhD • R&D Engineer
                 </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 drop-shadow-lg">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
                     何明鋼 <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Ming-Kang Ho</span>
                 </h1>
-                <p class="text-xl text-slate-200 mb-8 leading-relaxed drop-shadow-md">
-                    跨越<strong class="text-white">理論物理</strong>與<strong class="text-white">工程實作</strong>的界線。
+                <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+                    跨越<strong class="text-slate-200">理論物理</strong>與<strong class="text-slate-200">工程實作</strong>的界線。
                     <br>專精於同步輻射實驗、自動化設備開發與 AI 數據分析。
                 </p>
                 
-                <div class="flex flex-wrap gap-4 text-sm text-slate-200 mb-8">
+                <div class="flex flex-wrap gap-4 text-sm text-slate-300 mb-8">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-graduation-cap text-primary"></i> 國立東華大學 物理博士 (2024/07)
                     </div>
@@ -226,15 +193,15 @@
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ho.mk@nsrrc.org.tw" target="_blank" class="px-6 py-3 bg-primary text-slate-900 font-bold rounded-lg hover:bg-sky-300 transition-colors shadow-lg shadow-primary/20">
                         <i class="fa-solid fa-envelope mr-2"></i> 聯絡我
                     </a>
-                    <button onclick="toggleBio()" class="px-6 py-3 border border-slate-400 text-slate-200 rounded-lg hover:bg-slate-800/50 hover:text-white transition-colors group flex items-center gap-2 backdrop-blur-sm">
+                    <button onclick="toggleBio()" class="px-6 py-3 border border-slate-600 text-slate-300 rounded-lg hover:bg-slate-800 hover:text-white transition-colors group flex items-center gap-2">
                         <span>關於我</span>
                         <i id="bio-icon" class="fa-solid fa-chevron-down text-xs transition-transform group-hover:translate-y-1"></i>
                     </button>
                 </div>
                 
                 <!-- Collapsible Bio Section -->
-                <div id="full-bio" class="expandable-content border-l-2 border-slate-500 pl-6 ml-2">
-                    <div class="pb-4 text-slate-200 space-y-4 leading-relaxed drop-shadow-md">
+                <div id="full-bio" class="expandable-content border-l-2 border-slate-700 pl-6 ml-2">
+                    <div class="pb-4 text-slate-300 space-y-4 leading-relaxed">
                         <p>
                             我是一位熱衷於探究事物本質的物理學家，同時也是一位樂於動手解決問題的工程師。我的研究生涯始於對<strong class="text-white">磁性材料</strong>與<strong class="text-white">奈米科技</strong>的好奇，在國立東華大學攻讀博士學位期間，我專注於利用 X 光頻譜分析技術，深入探討材料在極端條件下的物理特性。
                         </p>
@@ -251,20 +218,20 @@
             <div class="order-1 md:order-2 flex justify-center animate-fade-in-up" style="animation-delay: 0.2s;">
                 <div class="relative w-64 h-64 md:w-80 md:h-80">
                     <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full blur-2xl opacity-30 animate-pulse"></div>
-                    <div class="absolute inset-0 border-2 border-slate-500 rounded-full flex items-center justify-center bg-slate-800/40 backdrop-blur-sm overflow-hidden img-zoom-container">
+                    <div class="absolute inset-0 border-2 border-slate-700 rounded-full flex items-center justify-center bg-slate-800/80 backdrop-blur-sm overflow-hidden img-zoom-container">
                         <!-- Profile Image -->
-                         <img src="assets/profile.jpg" 
+                         <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQSMGeMrnhYYQ6tuTiBDPwNmAeHCCcyXisdKzunNStS93bc?width=1108&height=1477" 
                               alt="Ming-Kang Ho" class="w-full h-full object-cover object-top">
                     </div>
                     
                     <!-- Floating Tech Icons -->
-                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-slate-800/80 backdrop-blur-md rounded-xl border border-slate-600 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 3s;">
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 3s;">
                         <i class="fa-brands fa-python text-3xl text-yellow-500"></i>
                     </div>
-                    <div class="absolute bottom-8 -left-8 w-14 h-14 bg-slate-800/80 backdrop-blur-md rounded-xl border border-slate-600 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                    <div class="absolute bottom-8 -left-8 w-14 h-14 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
                         <i class="fa-solid fa-microchip text-2xl text-primary"></i>
                     </div>
-                    <div class="absolute -bottom-4 right-8 w-12 h-12 bg-slate-800/80 backdrop-blur-md rounded-xl border border-slate-600 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 5s; animation-delay: 0.5s;">
+                    <div class="absolute -bottom-4 right-8 w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center shadow-xl animate-bounce" style="animation-duration: 5s; animation-delay: 0.5s;">
                         <span class="font-bold text-xs text-green-400">AI</span>
                     </div>
                 </div>
@@ -273,30 +240,30 @@
     </section>
 
     <!-- Skills Marquee -->
-    <div class="w-full bg-slate-900/60 backdrop-blur-md border-y border-slate-700 py-8 overflow-hidden">
+    <div class="w-full bg-slate-800/50 border-y border-slate-800 py-8 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4">
-            <h3 class="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6">Technical Arsenal</h3>
+            <h3 class="text-center text-sm font-semibold text-slate-500 uppercase tracking-widest mb-6">Technical Arsenal</h3>
             <div class="flex flex-wrap justify-center gap-3">
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Python</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">PyQt5</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">YOLOv8</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Arduino</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Marlin FW</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Solidworks</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Fusion360</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">ImageJ</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">FullProf</span>
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-600 rounded text-sm text-primary">Dectris API</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Python</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">PyQt5</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">YOLOv8</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Arduino</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Marlin FW</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Solidworks</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Fusion360</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">ImageJ</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">FullProf</span>
+                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-primary">Dectris API</span>
             </div>
         </div>
     </div>
 
     <!-- 1. Publications Section (Moved to Top) -->
-    <section id="publications" class="py-24">
+    <section id="publications" class="py-24 bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 reveal">
                 <div>
-                    <h2 class="text-3xl font-bold text-white mb-2 drop-shadow-md">精選學術發表</h2>
+                    <h2 class="text-3xl font-bold text-white mb-2">精選學術發表</h2>
                     <p class="text-slate-400">結合 AI 與材料科學的研究成果 (共 22 篇)</p>
                 </div>
             </div>
@@ -305,38 +272,38 @@
             <div class="space-y-8" id="top-pubs">
                 
                 <!-- Paper 1 (First Author) - Blue Style -->
-                <div class="glass-card p-0 rounded-xl border-l-4 border-l-primary hover:bg-slate-800/60 transition-colors reveal overflow-hidden">
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-primary hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
                     <div class="flex flex-col md:flex-row">
                         <div class="p-6 md:w-2/3">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">2024</span>
-                                <span class="text-xs font-mono text-slate-400">Materials Today Chemistry (IF: 7.6)</span>
+                                <span class="text-xs font-mono text-slate-500">Materials Today Chemistry (IF: 7.6)</span>
                             </div>
                             <h3 class="text-lg font-bold text-white mb-2">Advancing Humidity Sensing and Magnetocaloric Properties of Spinel Structural CoCr₂O₄ Nanoparticles Achieved via Innovative Bismuth Doping by Combustion Synthesis</h3>
-                            <p class="text-sm text-slate-300 mb-2"><strong>Ming-Kang Ho</strong> (First Author), et al.</p>
-                            <p class="text-sm text-slate-200 mt-2">
+                            <p class="text-sm text-slate-400 mb-2"><strong>Ming-Kang Ho</strong> (First Author), et al.</p>
+                            <p class="text-sm text-slate-300 mt-2">
                                 <span class="text-primary font-bold">Highlight:</span> 開發新型鉍摻雜燃燒合成法，顯著提升濕度感測靈敏度與磁熱效應。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/BiCoCr2O4.jpg', 'Advancing Humidity Sensing...')">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('https://1drv.ms/i/c/3162e3390841bf6a/IQQn-aO9yVz3QrbmU9KxAZQHAQWN-p7pt4LWFVRmj4goDW8?width=1391&height=1440', 'Advancing Humidity Sensing...')">
                              <!-- Image for Paper 1 (BiCoCr2O4) -->
-                             <img src="assets/BiCoCr2O4.jpg" 
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQQn-aO9yVz3QrbmU9KxAZQHAQWN-p7pt4LWFVRmj4goDW8?width=1391&height=1440" 
                                   alt="Paper 1 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
 
                 <!-- Paper 2 (ZnFe2O4/CoCr2O4) - Purple Style -->
-                <div class="glass-card p-0 rounded-xl border-l-4 border-l-purple-500 hover:bg-slate-800/60 transition-colors reveal overflow-hidden">
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-purple-500 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
                     <div class="flex flex-col md:flex-row">
                         <div class="p-6 md:w-2/3">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-2 py-1 rounded">2025</span>
-                                <span class="text-xs font-mono text-slate-400">Journal of Electronic Materials</span>
+                                <span class="text-xs font-mono text-slate-500">Journal of Electronic Materials</span>
                             </div>
                             <h3 class="text-lg font-bold text-white mb-2">Study of Crystal Structure, Morphology, Magnetic and Electronic Structure of ZnFe₂O₄/CoCr₂O₄ Nanocomposites</h3>
-                            <p class="text-sm text-slate-300">K. Manjunatha, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
-                             <p class="text-sm text-slate-200 mt-2">
+                            <p class="text-sm text-slate-400">K. Manjunatha, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                             <p class="text-sm text-slate-300 mt-2">
                                 <span class="text-purple-400 font-bold">Highlight:</span> 深入探討 ZnFe₂O₄/CoCr₂O₄ 奈米複合材料的晶體結構、形貌、磁性與電子結構特性。
                             </p>
                         </div>
@@ -349,16 +316,16 @@
                 </div>
 
                 <!-- Paper 3 (Bi-Doped NiFe2O4) - Red Style -->
-                <div class="glass-card p-0 rounded-xl border-l-4 border-l-red-500 hover:bg-slate-800/60 transition-colors reveal overflow-hidden">
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-red-500 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
                     <div class="flex flex-col md:flex-row">
                         <div class="p-6 md:w-2/3">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-bold text-red-400 bg-red-500/10 px-2 py-1 rounded">2025</span>
-                                <span class="text-xs font-mono text-slate-400">ACS Applied Electronic Materials</span>
+                                <span class="text-xs font-mono text-slate-500">ACS Applied Electronic Materials</span>
                             </div>
                             <h3 class="text-lg font-bold text-white mb-2">High-Performance Bi-Doped NiFe₂O₄ Nanoparticles for Advanced Supercapacitors and Room Temperature Magnetic Memory Applications</h3>
-                            <p class="text-sm text-slate-300">Tsu-En Hsu, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
-                             <p class="text-sm text-slate-200 mt-2">
+                            <p class="text-sm text-slate-400">Tsu-En Hsu, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                             <p class="text-sm text-slate-300 mt-2">
                                 <span class="text-red-400 font-bold">Highlight:</span> 研究高效能 Bi 摻雜 NiFe₂O₄ 奈米粒子，應用於先進超級電容器及室溫磁記憶體。
                             </p>
                         </div>
@@ -371,22 +338,22 @@
                 </div>
 
                 <!-- Paper 4 (AI - Investigating Fe-doped...) - Green Style -->
-                <div class="glass-card p-0 rounded-xl border-l-4 border-l-green-500 hover:bg-slate-800/60 transition-colors reveal overflow-hidden">
+                <div class="glass-card p-0 rounded-xl border-l-4 border-l-green-500 hover:bg-slate-800/80 transition-colors reveal overflow-hidden">
                     <div class="flex flex-col md:flex-row">
                         <div class="p-6 md:w-2/3">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded">2024</span>
-                                <span class="text-xs font-mono text-slate-400">Materials Today Sustainability (IF: 7.8)</span>
+                                <span class="text-xs font-mono text-slate-500">Materials Today Sustainability (IF: 7.8)</span>
                             </div>
                             <h3 class="text-lg font-bold text-white mb-2">Investigating Fe-doped Yttrium Oxide nanophosphors for enhanced latent fingerprint visualization and deep learning analysis</h3>
-                            <p class="text-sm text-slate-300 mb-2">D. R. Lavanya, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
-                            <p class="text-sm text-slate-200 mt-2">
+                            <p class="text-sm text-slate-400 mb-2">D. R. Lavanya, ..., <strong>Ming-Kang Ho</strong>, et al.</p>
+                            <p class="text-sm text-slate-300">
                                 <span class="text-green-400 font-bold">Highlight:</span> 結合 YOLOv8 深度學習模型，自動識別並標註指紋特徵點，提升鑑識科學自動化程度。
                             </p>
                         </div>
-                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('assets/YOLOv8.jpg', 'Investigating Fe-doped Yttrium Oxide...')">
+                        <div class="md:w-1/3 bg-slate-800/50 border-l border-slate-700/50 min-h-[150px] relative cursor-pointer" onclick="showImageModal('https://1drv.ms/i/c/3162e3390841bf6a/IQROocq1FGIaRJvtJkvBMsjqAUv_hscDw4lwi9iOUFVpZ2k?width=2304&height=1856', 'Investigating Fe-doped Yttrium Oxide...')">
                              <!-- Image for Paper 4 (YOLOv8) -->
-                             <img src="assets/YOLOv8.jpg" 
+                             <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQROocq1FGIaRJvtJkvBMsjqAUv_hscDw4lwi9iOUFVpZ2k?width=2304&height=1856" 
                                   alt="Paper 4 Abstract" class="w-full h-full object-contain p-2 absolute inset-0 transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
@@ -517,7 +484,7 @@
     </section>
 
     <!-- 2. Experience Timeline -->
-    <section id="experience" class="py-24 relative overflow-hidden">
+    <section id="experience" class="py-24 bg-slate-850 relative overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#64748b 1px, transparent 1px); background-size: 32px 32px;"></div>
 
@@ -555,10 +522,10 @@
     </section>
 
     <!-- 3. Projects Section -->
-    <section id="projects" class="py-24 bg-slate-900/50 backdrop-blur-sm">
+    <section id="projects" class="py-24 bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-md">亮點專案實作</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">亮點專案實作</h2>
                 <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
                 <p class="mt-4 text-slate-400">從物理原理到軟硬體整合的全端工程展示</p>
             </div>
@@ -571,23 +538,23 @@
                             <span class="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-full border border-accent/20">Instrument Control</span>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-4">高壓單晶 X 光繞射控制系統</h3>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
+                        <p class="text-slate-400 mb-6 leading-relaxed">
                             為了應對高壓結晶學對精確對光與快速數據收集的需求，開發了整合馬達控制與偵測器讀取的 Master GUI。此系統大幅減少了人工操作的時間與誤差。
                         </p>
                         <ul class="space-y-3 mb-8">
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>直觀操作：</strong>使用 PyQt5 (Qt Designer) 打造完整控制面板，整合馬達狀態、影像顯示與掃描參數設定。</span>
                             </li>
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>硬體串接：</strong>透過 API 連結 Dectris 9M 偵測器，即時獲取並解析晶體繞射點 (Diffraction Spots) 數據。</span>
                             </li>
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>即時擬合：</strong>實現 <code class="text-primary bg-slate-800/80 px-1 rounded">Real-time Fitting</code> (Gaussian/Lorentzian)，自動計算 Peak Center 並驅動馬達校正晶體位置。</span>
+                                <span><strong>即時擬合：</strong>實現 <code class="text-primary bg-slate-800 px-1 rounded">Real-time Fitting</code> (Gaussian/Lorentzian)，自動計算 Peak Center 並驅動馬達校正晶體位置。</span>
                             </li>
-                             <li class="flex items-start gap-3 text-slate-200">
+                             <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>自動化流程：</strong>支援多軸掃描 (Scan)、自動置中 (Auto Center) 與數據存檔功能。</span>
                             </li>
@@ -637,23 +604,23 @@
                             <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Full-Stack Hardware</span>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-4">自動化液體螺旋觀測設備</h3>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
+                        <p class="text-slate-400 mb-6 leading-relaxed">
                             針對流體力學中的 "Teapot Effect" 與 3D 列印噴頭阻塞問題，開發了一套自動化觀測系統。解決了傳統手動實驗無法精確控制流速與角度的痛點。
                         </p>
                         <ul class="space-y-3 mb-8">
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>機構設計：</strong>使用 Tinkercad 與 Solidworks 設計垂直圓柱與噴頭固定座，並以 3D 列印製作。</span>
                             </li>
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>韌體控制：</strong>整合 Arduino 與 Marlin Firmware，精確控制步進馬達擠出量。</span>
                             </li>
-                            <li class="flex items-start gap-3 text-slate-200">
+                            <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
-                                <span><strong>軟體介面：</strong>開發 <code class="text-primary bg-slate-800/80 px-1 rounded">Python PyQt5</code> GUI，即時調整參數 (Speed, Angle, Extrusion) 並生成 G-code 控制機器。</span>
+                                <span><strong>軟體介面：</strong>開發 <code class="text-primary bg-slate-800 px-1 rounded">Python PyQt5</code> GUI，即時調整參數 (Speed, Angle, Extrusion) 並生成 G-code 控制機器。</span>
                             </li>
-                             <li class="flex items-start gap-3 text-slate-200">
+                             <li class="flex items-start gap-3 text-slate-300">
                                 <i class="fa-solid fa-check text-green-400 mt-1"></i>
                                 <span><strong>數據分析：</strong>使用 ImageJ 分析影像，驗證 Weber Number 與偏轉角度的理論關係。</span>
                             </li>
@@ -662,34 +629,39 @@
                 </div>
             </div>
 
-             <!-- Project 3: TPS 15A1 Video (Removed from card, now full bg) -->
-             <!-- Since the video is now the background, we can repurpose this card or remove it if redundant. 
-                  However, having a dedicated card explaining the video context is still good. Let's keep it but maybe remove the video element inside to avoid duplication, or keep it as a highlight reel.
-                  Given the request "I want to make this video like a dynamic background", we already did that.
-                  If the user wants to KEEP the card to explain the background video: -->
+            <!-- Project 3: TPS 15A1 Video -->
             <div class="glass-card rounded-2xl p-8 mb-24 reveal">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                     <!-- Text Column (Full width if no video inside) or keep layout -->
-                    <div class="col-span-2">
-                        <div class="flex items-center justify-center gap-3 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Background Video Content</span>
+                    <!-- Video Column -->
+                    <div class="relative group space-y-4">
+                         <div class="rounded-xl border border-slate-700 shadow-2xl overflow-hidden aspect-video bg-black relative">
+                            <!-- Removed autoplay, added controls to prevent auto-play on mobile/desktop unless user interacts -->
+                            <video controls class="w-full h-full object-contain">
+                                <source src="assets/20251217_061155000_iOS.MOV" type="video/mp4">
+                                <source src="assets/20251217_061155000_iOS.MOV" type="video/quicktime">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-4 text-center">TPS 15A1 實驗儀器實作紀錄</h3>
-                        <p class="text-slate-300 mb-6 leading-relaxed text-center">
-                            網站背景影片展示了我在 TPS 15A1 線站進行的實驗儀器架設、調校與實際運作過程。
-                            <br>這不僅是技術的展現，更是面對複雜實驗環境時，解決現場問題與精準操作的實力證明。
+                    </div>
+                    <!-- Text Column -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Experiment Setup</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">TPS 15A1 實驗儀器實作紀錄</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            紀錄於 TPS 15A1 線站進行的實驗儀器架設、調校與實際運作過程。展示在同步輻射環境下的硬體實作能力。
                         </p>
-                         <div class="flex justify-center gap-8 text-sm text-slate-400">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-400"></i> 光束線站架設
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-400"></i> 精密儀器調校
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-400"></i> 真空系統操作
-                            </div>
-                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>儀器架設：</strong>在光束線站實際架設與調整高精密實驗設備。</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <i class="fa-solid fa-check text-green-400 mt-1"></i>
+                                <span><strong>實作演示：</strong>展現對複雜實驗環境的操作熟悉度與解決現場問題的能力。</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -698,9 +670,9 @@
     </section>
 
     <!-- Honors Section -->
-    <section id="honors" class="py-24 bg-slate-900/50 backdrop-blur-sm">
+    <section id="honors" class="py-24 bg-slate-850">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-white mb-12 text-center reveal drop-shadow-md">榮譽與認證</h2>
+            <h2 class="text-3xl font-bold text-white mb-12 text-center reveal">榮譽與認證</h2>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- NVIDIA -->
@@ -782,7 +754,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="bg-slate-800 p-2 rounded-lg shadow-2xl border border-slate-700">
-                <img src="assets/cert_actinspace.jpg" 
+                <img src="https://1drv.ms/i/c/3162e3390841bf6a/IQR4jChLXVqVSb8C_tYRxHIbASGbybXUDmz5of51K8jQ7pw?width=425&height=606" 
                      alt="ActInSpace Merit Award" class="max-h-[80vh] w-auto object-contain rounded">
                 <div class="text-center mt-4 pb-2">
                     <h3 class="text-lg font-bold text-white">ActInSpace Merit Award</h3>
